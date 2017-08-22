@@ -1,7 +1,8 @@
 require 'open-uri'
 require 'nokogiri'
+require 'json'
 
-# Set data to file function
+### Set data to file function
 def output array
   output = File.open "scrapper.csv", "w"
   array.each do |var|  
@@ -10,18 +11,20 @@ def output array
   output.close
 end
 
-# Create Nokogiri INSTANCE
+### Create Nokogiri INSTANCE
 doc = Nokogiri::HTML(open("https://www.petsonic.com/es/perros/snacks-y-huesos-perro/"))
 
+### Create an array to fill with product data
 products = []
 
-
-doc.css('.top-product-meta').each do |showing|
+### Scrapping 
+doc.css('.product-container').each do |showing|
   title = showing.at_css('.product-name').text.strip
-  price_1 = showing.at_css('.product-price')
-  price =  price_1.text.strip.delete "desde  "
-  products.push(" #{title}, #{price}")
+  price = showing.at_css('.product-price').text.strip.delete "desde  "
+  image = showing.at_css('.product_img_link img').attr('src')
+  products.push(" #{title}, #{price}, #{image}")
 end
 
-output products
+puts JSON.pretty_generate(products)
+#output products
 
