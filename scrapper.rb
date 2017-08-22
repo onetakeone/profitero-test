@@ -3,19 +3,11 @@ require 'nokogiri'
 require 'json'
 require 'csv'
 
-### Simple data record via file.open 
-def fileopen_output array
-  output = File.open "scrapper.csv", "w"
-  array.each do |var|  
-    output.write " #{var},  \n"  
-  end 
-  output.close
-end
 
 ### CSV-way data output
 def CSV_output array
-  CSV.open("csv-scrapper.csv", "wb") do |csv|
-    products.each do |var|
+  CSV.open("csv-1.csv", "w+") do |csv|
+    array.each do |var|
       csv << var
     end
   end
@@ -41,7 +33,6 @@ end
 puts JSON.pretty_generate(products)
 
 ### Writes output data to csv file
-fileopen_output products
 CSV_output products
 
 
