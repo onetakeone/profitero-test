@@ -6,7 +6,7 @@ require 'csv'
 
 ### CSV-way data output
 def CSV_output array
-  CSV.open("csv-1.csv", "w+") do |csv|
+  CSV.open("csv-3.csv", "w+") do |csv|
     array.each do |var|
       csv << var
     end
@@ -56,14 +56,16 @@ doc.css('.product-container').each do |var|
     # Create complete array of product items (title, weight, price)
     weights.length.times do |i|
       prod = []
-      prod.push( title: title, weight: weights[i], price: prices[i]) 
+      prod.push( title, weights[i], prices[i]) 
+      #prod.push( title: title, weight: weights[i], price: prices[i]) 
       single_product << prod
     end    
   end  
   #puts JSON.pretty_generate(single_product)
   #############################################<
 
-  product.push(title, price, image, link, single_product)
+  product.push( title, price, image, single_product)
+  #product.push( name: title, price: price, img_link: image, varieties: single_product)
   products.push(product)
 end
 
