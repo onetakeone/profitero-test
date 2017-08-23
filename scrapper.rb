@@ -18,7 +18,6 @@ doc = Nokogiri::HTML(open("https://www.petsonic.com/es/perros/snacks-y-huesos-pe
 
 ### Create an array to fill with product data
 products = []
-single_product = []
 
 ### Scrapping 
 doc.css('.product-container').each do |var|
@@ -56,21 +55,18 @@ doc.css('.product-container').each do |var|
     # Create complete array of product items (title, weight, price)
     weights.length.times do |i|
       prod = []
-      prod.push( title, weights[i], prices[i]) 
-      #prod.push( title: title, weight: weights[i], price: prices[i]) 
+      prod.push( title: title, weight: weights[i], price: prices[i]) 
       single_product << prod
     end    
   end  
   #puts JSON.pretty_generate(single_product)
   #############################################<
 
-  product.push( title, price, image, single_product)
-  #product.push( name: title, price: price, img_link: image, varieties: single_product)
+  product.push( name: title, price: price, img_link: image, varieties: single_product)
   products.push(product)
 end
 
 ### Console data output 
-
 puts JSON.pretty_generate(products)
 
 ### Writes output data to csv file
