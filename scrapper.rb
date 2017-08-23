@@ -55,12 +55,13 @@ doc.css('.product-container').each do |var|
     end    
   end
 
-  puts JSON.pretty_generate(single_product)
+  #puts JSON.pretty_generate(single_product)
   # CSV_output products
   ################################################
 
-  product.push(title, price, image, link)
+  product.push(title, price, image, link, single_product)
   products.push(product)
+  #puts JSON.pretty_generate(products)
 end
 
 
@@ -70,7 +71,7 @@ end
 #puts JSON.pretty_generate(products)
 
 ### Writes output data to csv file
-# CSV_output products
+CSV_output products
 
 
 
