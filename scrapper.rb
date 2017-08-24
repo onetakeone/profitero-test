@@ -12,20 +12,23 @@ def CSV_output array
 end
 
 page = Nokogiri::HTML(open("https://www.petsonic.com/es/perros/snacks-y-huesos-perro/"))
-
-hh = []
+deploy = []
 page.xpath('//*[@id="center_column"]/div/div/div/div/div/div/div/div/h5/a').each do |var|   
+  hh = []
   product = Nokogiri::HTML(open(var['href']))
   title = product.xpath('//*[@id="right"]/div/div[1]/div/h1/text()')
-  hh.push(title)
-  product.xpath('//*[@id="attributes"]/fieldset/div/ul[2]/li/span[position() <= 2]').each do |temp|
-    hh.push(temp.text.strip)
+  image = product.xpath('//*[@id="bigpic"]').attr('src')    
+  hh.push(title, image)
+  product.xpath('//*[@id="attributes"]/fieldset/div/ul[@class="attribute_labels_lists"]/li/span[position() <= 2]/text()').each do |temp|
+    hh.push(temp)
   end
+  deploy << hh
 end
-puts JSON.pretty_generate(hh)  
+CSV_output deploy
 
 
-#CSV_output hh
+#puts JSON.pretty_generate(hh)  
+
 #title = var.xpath('//*[@id="center_column"]/div/div/div/div/div/div/div/div/h5/a').each do |temp|
   #  hh.push(temp.text)
   #end
@@ -45,9 +48,7 @@ puts JSON.pretty_generate(hh)
   #title = var.at_css('.product-name').text.strip
   #price = var.at_css('.product-price').text.strip.delete "desde  "
   #image = var.at_css('.product_img_link img').attr('src')
-  
-
-  
+    
   # product_page = Nokogiri::HTML(open(link))
 
   # single_product = []
