@@ -1,10 +1,9 @@
 require 'open-uri'
 require 'nokogiri'
-require 'json'
 require 'csv'
 
 def output array
-  CSV.open("csv-test.csv", "w+") do |csv|
+  CSV.open("csv.csv", "w+") do |csv|
     array.each do |var|
       csv << var
     end
@@ -26,5 +25,5 @@ csv = []
     csv << product_info
   end  
 end
-#puts JSON.pretty_generate(csv) 
 output csv
+
