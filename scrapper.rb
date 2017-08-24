@@ -21,7 +21,7 @@ csv = []
     product.xpath('//*[@id="attributes"]/fieldset/div/ul[@class="attribute_labels_lists"]').each_with_index do |lab, i|
       product_info = []  
       product_info.push( title, image, lab.xpath('//li/span[@class="attribute_name"]/text()')[i], lab.xpath('//li/span[@class="attribute_price"]/text()')[i] )
-      csv.push(hh)      
+      csv.push(product_info)    
     end             
   end 
 end
